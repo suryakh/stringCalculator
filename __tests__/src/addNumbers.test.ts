@@ -19,10 +19,26 @@ test("Check String Calculator with text having numbers and dynamic delimiter wit
     expect(addNumbers("//$3$4\n$7$\n")).toBe(14);
 });
 
-test("Check String Calculator with text having negative numbers with , separated: 3,-4,-7", () => {
-    expect(addNumbers("3,-4,-7")).toBe("negatives not allowed: -4,-7");
+test("Check String Calculator with text having negative numbers with , separated ex: 3,-4,-7", () => {
+    try{
+        addNumbers("3,-4,-7")
+    } catch(error){
+        expect(error).toEqual(new Error("negative numbers not allowed -4,-7"))
+    }
 });
 
-test("Check String Calculator with text having negative numbers with dynamic delimiter: //$3$4\n$-7$\n", () => {
-    expect(addNumbers("//$3$4\n$-7$\n")).toBe("negatives not allowed: -7");
+test("Check String Calculator with text having negative numbers with dynamic delimiter ex: //$3$4\n$-7$\n", () => {
+    try {
+        addNumbers("//$3$4\n$-7$\n")
+    } catch (error){
+        expect(error).toEqual(new Error("negative numbers not allowed -7"));
+    }
+});
+
+test("Check String Calculator with text having numbers also have more than 1000 number and dynamic delimiter ex://$3$4\n$7$1000$1005\n", () => {
+    expect(addNumbers("//$3$4\n$7$1000$1005\n")).toBe(1014);
+});
+
+test("Check String Calculator with text having numbers also have more than 1000 number ex: 3,4,7,1001", () => {
+    expect(addNumbers("3,4,7,1001")).toBe(14);
 });

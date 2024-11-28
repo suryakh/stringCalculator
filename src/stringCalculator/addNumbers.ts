@@ -1,3 +1,27 @@
+const getResult = (givenString: string,delimiter: string ) => {
+    const listOfLetters = givenString.split(delimiter)
+        let total = 0
+        const negativeNumbersList: number[] = [] 
+        listOfLetters.forEach((letter)=>{
+            if(!isNaN(Number(letter))){
+                if(Number(letter) < 0 ){
+                    negativeNumbersList.push(Number(letter))
+                 }
+                 else if(Number(letter) <= 1000) {
+                     total = total+Number(letter)
+                 }
+            }
+            
+        }) 
+        if(negativeNumbersList.length > 0 ) {
+            throw new Error(`negative numbers not allowed ${negativeNumbersList.join(',')}`)
+        } else{
+            return total
+        }
+}
+
+
+
 const addNumbers = (inputString: string)  => {
     //removed \n from given string 
     let  newLineFreeString = inputString.replace(/[\n\r\t]/gm,'')
@@ -10,45 +34,9 @@ const addNumbers = (inputString: string)  => {
                 break;
             }
         }
-        const listOfLetters = newLineFreeString.split(delimiter)
-        let total = 0
-        const negativeNumbersList: number[] = [] 
-        listOfLetters.forEach((letter)=>{
-            if(!isNaN(Number(letter))){
-                if(Number(letter) < 0 ){
-                    negativeNumbersList.push(Number(letter))
-                 }
-                 else{
-                     total = total+Number(letter)
-                 }
-            }
-        }) 
-        if(negativeNumbersList.length > 0 ) {
-            return `negatives not allowed: ${ negativeNumbersList.join(',')}`
-        } else{
-            return total
-        }
+        return getResult(newLineFreeString,delimiter)
     } else {
-
-        const listOfLetters = newLineFreeString.split(',')
-        let total = 0
-        const negativeNumbersList: number[] = [] 
-        listOfLetters.forEach((letter)=>{
-            if(!isNaN(Number(letter))){
-                if(Number(letter) < 0 ){
-                    negativeNumbersList.push(Number(letter))
-                 }
-                 else{
-                     total = total+Number(letter)
-                 }
-            }
-            
-        }) 
-        if(negativeNumbersList.length > 0 ) {
-            return `negatives not allowed: ${ negativeNumbersList.join(',')}`
-        } else{
-            return total
-        }
+        return getResult(newLineFreeString,',')
     }
 }
 
