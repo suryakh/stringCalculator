@@ -12,24 +12,43 @@ const addNumbers = (inputString: string)  => {
         }
         const listOfLetters = newLineFreeString.split(delimiter)
         let total = 0
-        listOfLetters.forEach((ele)=>{
-            if(!isNaN(Number(ele))){
-                total = total+Number(ele)
+        const negativeNumbersList: number[] = [] 
+        listOfLetters.forEach((letter)=>{
+            if(!isNaN(Number(letter))){
+                if(Number(letter) < 0 ){
+                    negativeNumbersList.push(Number(letter))
+                 }
+                 else{
+                     total = total+Number(letter)
+                 }
             }
-            
         }) 
-        return total
+        if(negativeNumbersList.length > 0 ) {
+            return `negatives not allowed: ${ negativeNumbersList.join(',')}`
+        } else{
+            return total
+        }
     } else {
 
         const listOfLetters = newLineFreeString.split(',')
         let total = 0
-        listOfLetters.forEach((ele)=>{
-            if(!isNaN(Number(ele))){
-                total = total+Number(ele)
+        const negativeNumbersList: number[] = [] 
+        listOfLetters.forEach((letter)=>{
+            if(!isNaN(Number(letter))){
+                if(Number(letter) < 0 ){
+                    negativeNumbersList.push(Number(letter))
+                 }
+                 else{
+                     total = total+Number(letter)
+                 }
             }
             
         }) 
-        return total
+        if(negativeNumbersList.length > 0 ) {
+            return `negatives not allowed: ${ negativeNumbersList.join(',')}`
+        } else{
+            return total
+        }
     }
 }
 
