@@ -42,3 +42,11 @@ test("Check String Calculator with text having numbers also have more than 1000 
 test("Check String Calculator with text having numbers also have more than 1000 number ex: 3,4,7,1001", () => {
     expect(addNumbers("3,4,7,1001")).toBe(14);
 });
+
+test("Check String Calculator with text having numbers and multiple delimiter with optional new line ex: //*%$3$4$$$%$$7%\n", () => {
+    expect(addNumbers("//*%$3$4$$$%$$7%\n")).toBe(14);
+});
+
+test("Check String Calculator with text having numbers and repeated delimiter with optional new line ex: //****3****4*****7***\n", () => {
+    expect(addNumbers("//****3****4*****7***\n")).toBe(14);
+});

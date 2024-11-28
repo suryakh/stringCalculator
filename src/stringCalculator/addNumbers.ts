@@ -2,6 +2,7 @@ const getResult = (givenString: string,delimiter: string ) => {
     const listOfLetters = givenString.split(delimiter)
         let total = 0
         const negativeNumbersList: number[] = [] 
+        // negative number check
         listOfLetters.forEach((letter)=>{
             if(!isNaN(Number(letter))){
                 if(Number(letter) < 0 ){
@@ -26,15 +27,31 @@ const addNumbers = (inputString: string)  => {
     //removed \n from given string 
     let  newLineFreeString = inputString.replace(/[\n\r\t]/gm,'')
     if(newLineFreeString.slice(0,2) == '//'){
-        let delimiter = ''; 
+
+        // collecting all the delimiters
+        let delimitersList: string | any[] = []
         for(let i = 2; i<newLineFreeString.length ; i++){
-            if(isNaN(Number(newLineFreeString[i]))){
-                delimiter = newLineFreeString[i]
+            if(isNaN(Number( newLineFreeString[i]))){
+                if(!delimitersList.includes(newLineFreeString[i])){
+                    delimitersList.push(newLineFreeString[i])
+                }
             }else {
                 break;
             }
         }
-        return getResult(newLineFreeString,delimiter)
+
+        const fistDelimiter = delimitersList[0]
+
+        // replacing all the delimiters with single delimiter
+        let refactoredString = ''
+        for(let i= 2 ; i < newLineFreeString.length ; i++){
+                if(delimitersList.includes(newLineFreeString[i])){
+                    refactoredString = refactoredString + fistDelimiter
+                } else {
+                    refactoredString = refactoredString + newLineFreeString[i]
+                }
+        }
+        return getResult(refactoredString, fistDelimiter)
     } else {
         return getResult(newLineFreeString,',')
     }
